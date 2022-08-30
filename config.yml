@@ -1,4 +1,4 @@
-user_token: вставьте_ваш_токен_вместо_этой_строки
+user_token: OTY3NmVjYWYtZTJhNC00NzNhLTgwM2YtZGY3OTBkYTM3YWFhXzE1NDc=
 
 session:
   key: CaY5iCkYtN7DqXdiYK1BvmGrQuaSA4Tl4bEk9my0jc0=
@@ -12,7 +12,5 @@ database:
   password: kts_pass
   database: kts
 bot:
-  token: group_token
-  group_id: 1
-
-
+  token: vk1.a.rpc36ZAamg4GbJ8tgrc0KC41lwJ2Rv79AdykzLt_GlPclIhu5i-61AhQQRzqRLY9Ng4yErt-MyRUZ5r8381AloFJkV-_ulQSLUo3OOu90OefSNusuxV3MjyWUgSEv0okuvaBZRTrHCh_bkh1s1luZRVnTlQXXjTMGA6gYlb1uvrluR4XSfsZf1DcRKEhQhcx
+  group_id: 215461654

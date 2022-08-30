@@ -4,7 +4,7 @@ from app.quiz.views import (
     QuestionAddView,
     QuestionListView,
     ThemeAddView,
-    ThemeListView,
+    ThemeListView
 )
 
 if typing.TYPE_CHECKING:
