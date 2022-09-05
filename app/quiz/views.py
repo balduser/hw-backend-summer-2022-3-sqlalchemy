@@ -34,7 +34,7 @@ class ThemeListView(AuthRequiredMixin, View):
     @response_schema(ThemeListSchema)
     async def get(self):
         themes = await self.store.quizzes.list_themes()
-        return json_response(data={"themes": [ThemeSchema().dump(theme) for theme in themes]})
+        return json_response(data=ThemeListSchema().dump({'themes': themes}))
 
 
 class QuestionAddView(AuthRequiredMixin, View):
@@ -65,4 +65,4 @@ class QuestionListView(AuthRequiredMixin, View):
     async def get(self):
         theme_id = int(self.request.query.get('theme_id')) if self.request.query.get('theme_id') else None
         questions = await self.store.quizzes.list_questions(theme_id=theme_id)
-        return json_response(data={"questions": [QuestionSchema().dump(question) for question in questions]})
+        return json_response(data=ListQuestionSchema().dump({'questions': questions}))
