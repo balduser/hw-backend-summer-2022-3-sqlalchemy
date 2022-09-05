@@ -3,17 +3,18 @@ from sqlalchemy import delete
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.future import select
 
+from app.exceptions import ContentDoesntMatchRulesError
 from app.quiz.models import Answer, AnswerModel, Question, QuestionModel, Theme
 from app.store import Store
 from tests.quiz import question2dict
-from tests.utils import check_empty_table_exists
+from tests.utils import check_table_exists
 from tests.utils import ok_response
 
 
 class TestQuestionsStore:
     async def test_table_exists(self, cli):
-        await check_empty_table_exists(cli, "questions")
-        await check_empty_table_exists(cli, "answers")
+        await check_table_exists(cli, "questions")
+        await check_table_exists(cli, "answers")
 
     async def test_create_question(
         self, cli, store: Store, theme_1: Theme, answers: list[Answer]
@@ -65,6 +66,17 @@ class TestQuestionsStore:
                 question_1.title, question_1.theme_id, answers
             )
         assert exc_info.value.orig.pgcode == "23505"
+
+    async def test_create_question_with_few_correct_answers(
+            self, store: Store, theme_1: Theme
+    ):
+        answers = [
+            Answer(title="a", is_correct=True),
+            Answer(title="b", is_correct=False),
+            Answer(title="c", is_correct=True),
+            ]
+        with pytest.raises(ContentDoesntMatchRulesError) as error:
+            await store.quizzes.create_question(title='q_title', theme_id=theme_1.id, answers=answers)
 
     async def test_get_question_by_title(self, cli, store: Store, question_1: Question):
         assert question_1 == await store.quizzes.get_question_by_title(question_1.title)

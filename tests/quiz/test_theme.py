@@ -6,13 +6,13 @@ from sqlalchemy.future import select
 from app.quiz.models import Question, QuestionModel, Theme, ThemeModel
 from app.store import Store
 from tests.quiz import theme2dict
-from tests.utils import check_empty_table_exists
+from tests.utils import check_table_exists
 from tests.utils import ok_response
 
 
 class TestThemeStore:
     async def test_table_exists(self, cli):
-        await check_empty_table_exists(cli, "themes")
+        await check_table_exists(cli, "themes")
 
     async def test_create_theme(self, cli, store: Store):
         theme_title = "title"
